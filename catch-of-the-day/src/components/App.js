@@ -14,6 +14,10 @@ class App extends React.Component {
 
   componentDidMount() {
     const { params } = this.props.match;
+    const serializedOrder = localStorage.getItem(params.storeId);
+    if (serializedOrder) {
+      this.setState({order: JSON.parse(serializedOrder)});
+    }
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
@@ -24,8 +28,11 @@ class App extends React.Component {
     base.removeBinding(this.ref);
   }
 
+  componentDidUpdate() {
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
+  }
+
   addFish = fish => {
-    console.log('Adding a fish!');
     const fishes = { ...this.state.fishes };
     fishes[`fish${Date.now()}`] = fish;
     this.setState({ fishes });
