@@ -1,0 +1,5 @@
+if g:localvimrc_sourced_once
+    finish
+endif
+
+let g:ctrlp_user_command .= ' --ignore node_modules'
