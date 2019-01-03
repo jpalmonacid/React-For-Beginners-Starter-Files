@@ -7,7 +7,6 @@ class EditFishForm extends React.Component {
       ...this.props.fish,
       [changedProperty]: changedValue
     };
-    console.log(updatedFish);
     this.props.updateFish(this.props.fishId, updatedFish);
   };
 
